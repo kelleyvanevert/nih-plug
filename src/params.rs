@@ -18,6 +18,7 @@ mod boolean;
 pub mod enums;
 mod float;
 mod integer;
+mod string;
 
 pub mod internals;
 pub mod persist;
@@ -28,6 +29,7 @@ pub use boolean::BoolParam;
 pub use enums::EnumParam;
 pub use float::FloatParam;
 pub use integer::IntParam;
+pub use string::StringParam;
 
 bitflags::bitflags! {
     /// Flags for controlling a parameter's behavior.

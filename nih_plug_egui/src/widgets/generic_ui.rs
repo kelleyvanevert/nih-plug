@@ -23,6 +23,7 @@ pub trait ParamWidget {
             ParamPtr::FloatParam(p) => self.add_widget(ui, &**p, setter),
             ParamPtr::IntParam(p) => self.add_widget(ui, &**p, setter),
             ParamPtr::BoolParam(p) => self.add_widget(ui, &**p, setter),
+            ParamPtr::StringParam(p) => {}
             ParamPtr::EnumParam(p) => self.add_widget(ui, &**p, setter),
         }
     }

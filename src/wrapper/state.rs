@@ -104,6 +104,10 @@ pub(crate) unsafe fn serialize_object<'a, P: Plugin>(
                 param_id_str.clone(),
                 ParamValue::Bool((*p).unmodulated_plain_value()),
             ),
+            ParamPtr::StringParam(p) => (
+                param_id_str.clone(),
+                ParamValue::String((*p).unmodulated_plain_value()),
+            ),
             ParamPtr::EnumParam(p) => (
                 // Enums are either serialized based on the active variant's index (which may not be
                 // the same as the discriminator), or a custom set stable string ID. The latter

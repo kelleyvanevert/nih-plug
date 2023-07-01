@@ -9,6 +9,7 @@ pub enum ParamPtr {
     FloatParam(*const super::FloatParam),
     IntParam(*const super::IntParam),
     BoolParam(*const super::BoolParam),
+    StringParam(*const super::StringParam),
     /// Since we can't encode the actual enum here, this inner parameter struct contains all of the
     /// relevant information from the enum so it can be type erased.
     EnumParam(*const super::enums::EnumParamInner),
@@ -36,6 +37,7 @@ macro_rules! param_ptr_forward(
                 ParamPtr::FloatParam(p) => (**p).$method($($arg_name),*),
                 ParamPtr::IntParam(p) => (**p).$method($($arg_name),*),
                 ParamPtr::BoolParam(p) => (**p).$method($($arg_name),*),
+                ParamPtr::StringParam(p) => (**p).$method($($arg_name),*),
                 ParamPtr::EnumParam(p) => (**p).$method($($arg_name),*),
             }
         }
@@ -54,6 +56,7 @@ macro_rules! param_ptr_forward(
                 ParamPtr::FloatParam(p) => (**p).$method($($arg_name),*),
                 ParamPtr::IntParam(p) => (**p).$method($($arg_name),*),
                 ParamPtr::BoolParam(p) => (**p).$method($($arg_name),*),
+                ParamPtr::StringParam(p) => (**p).$method($($arg_name),*),
                 ParamPtr::EnumParam(p) => (**p).$method($($arg_name),*),
             }
         }
@@ -95,6 +98,7 @@ impl ParamPtr {
             ParamPtr::FloatParam(p) => (**p).modulated_plain_value(),
             ParamPtr::IntParam(p) => (**p).modulated_plain_value() as f32,
             ParamPtr::BoolParam(p) => (**p).modulated_normalized_value(),
+            ParamPtr::StringParam(p) => (**p).modulated_normalized_value(),
             ParamPtr::EnumParam(p) => (**p).modulated_plain_value() as f32,
         }
     }
@@ -117,6 +121,7 @@ impl ParamPtr {
             ParamPtr::FloatParam(p) => (**p).unmodulated_plain_value(),
             ParamPtr::IntParam(p) => (**p).unmodulated_plain_value() as f32,
             ParamPtr::BoolParam(p) => (**p).unmodulated_normalized_value(),
+            ParamPtr::StringParam(p) => (**p).unmodulated_normalized_value(),
             ParamPtr::EnumParam(p) => (**p).unmodulated_plain_value() as f32,
         }
     }
@@ -132,6 +137,7 @@ impl ParamPtr {
             ParamPtr::FloatParam(p) => (**p).default_plain_value(),
             ParamPtr::IntParam(p) => (**p).default_plain_value() as f32,
             ParamPtr::BoolParam(p) => (**p).modulated_normalized_value(),
+            ParamPtr::StringParam(p) => (**p).modulated_normalized_value(),
             ParamPtr::EnumParam(p) => (**p).default_plain_value() as f32,
         }
     }
@@ -148,6 +154,7 @@ impl ParamPtr {
             ParamPtr::FloatParam(p) => (**p).preview_normalized(plain),
             ParamPtr::IntParam(p) => (**p).preview_normalized(plain as i32),
             ParamPtr::BoolParam(_) => plain,
+            ParamPtr::StringParam(_) => plain,
             ParamPtr::EnumParam(p) => (**p).preview_normalized(plain as i32),
         }
     }
@@ -164,6 +171,7 @@ impl ParamPtr {
             ParamPtr::FloatParam(p) => (**p).preview_plain(normalized),
             ParamPtr::IntParam(p) => (**p).preview_plain(normalized) as f32,
             ParamPtr::BoolParam(_) => normalized,
+            ParamPtr::StringParam(_) => normalized,
             ParamPtr::EnumParam(p) => (**p).preview_plain(normalized) as f32,
         }
     }
