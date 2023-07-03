@@ -48,6 +48,7 @@ pub struct StringParam {
     ///
     /// The input string may or may not contain the unit, so you will need to be able to handle
     /// that.
+    #[allow(unused)]
     string_to_value: Option<Arc<dyn Fn(&String) -> Option<i32> + Send + Sync>>,
 }
 
@@ -111,11 +112,11 @@ impl Param for StringParam {
         None
     }
 
-    fn previous_step(&self, from: Self::Plain, _finer: bool) -> Self::Plain {
+    fn previous_step(&self, _from: Self::Plain, _finer: bool) -> Self::Plain {
         self.value.as_ref().lock().unwrap().clone()
     }
 
-    fn next_step(&self, from: Self::Plain, _finer: bool) -> Self::Plain {
+    fn next_step(&self, _from: Self::Plain, _finer: bool) -> Self::Plain {
         self.value.as_ref().lock().unwrap().clone()
     }
 
@@ -129,17 +130,17 @@ impl Param for StringParam {
         }
     }
 
-    fn string_to_normalized_value(&self, string: &str) -> Option<f32> {
+    fn string_to_normalized_value(&self, _string: &str) -> Option<f32> {
         None
     }
 
     #[inline]
-    fn preview_normalized(&self, plain: Self::Plain) -> f32 {
+    fn preview_normalized(&self, _plain: Self::Plain) -> f32 {
         0.0
     }
 
     #[inline]
-    fn preview_plain(&self, normalized: f32) -> Self::Plain {
+    fn preview_plain(&self, _normalized: f32) -> Self::Plain {
         self.value.as_ref().lock().unwrap().clone()
     }
 
@@ -181,11 +182,11 @@ impl ParamMut for StringParam {
         self.set_plain_value(self.preview_plain(normalized))
     }
 
-    fn modulate_value(&self, modulation_offset: f32) -> bool {
+    fn modulate_value(&self, _modulation_offset: f32) -> bool {
         false
     }
 
-    fn update_smoother(&self, sample_rate: f32, reset: bool) {
+    fn update_smoother(&self, _sample_rate: f32, _reset: bool) {
         // noop
     }
 }
