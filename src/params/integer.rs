@@ -279,6 +279,10 @@ impl IntParam {
         self.modulated_plain_value()
     }
 
+    pub fn set_value(&self, plain: i32) -> bool {
+        self.set_plain_value(plain)
+    }
+
     /// Enable polyphonic modulation for this parameter. The ID is used to uniquely identify this
     /// parameter in [`NoteEvent::PolyModulation`][crate::prelude::NoteEvent::PolyModulation]
     /// events, and must thus be unique between _all_ polyphonically modulatable parameters. See the
